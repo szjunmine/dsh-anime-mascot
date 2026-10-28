@@ -1,0 +1,3 @@
+- insert:
+    - id: anime-mascot
+      name: '@local/anime-mascot'

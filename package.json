@@ -1,0 +1,55 @@
+{
+  "name": "@local/anime-mascot",
+  "version": "1.32.0",
+  "private": false,
+  "type": "module",
+  "license": "MIT",
+  "author": "szjunmine",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szjunmine/dsh-anime-mascot.git"
+  },
+  "homepage": "https://github.com/szjunmine/dsh-anime-mascot#readme",
+  "bugs": {
+    "url": "https://github.com/szjunmine/dsh-anime-mascot/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "anime",
+    "mascot",
+    "cyberpunk",
+    "pixel-art"
+  ],
+  "description": "A high-resolution Bronya (Honkai: Star Rail) character sprite cut from the user-supplied sailor-outfit artwork, standing in the bottom-right corner of the interface with an animated aura, pixel particles and mood effects. On load, a cyberpunk pixel boot splash displays all six supplied images uncropped and edge-blended into the background, with edge-blurred photos, a warp tunnel, portal rings, falling pixel Tetris blocks, a pixel-plane battle, speed rays, glitch flashes, HP/EN/LV game HUD, scanlines and a neon loading bar, plus the welcome line 「欢迎探索未来，为世上一切美好而战」; it can be skipped or closes after the sixth image. Her original wink, blush and plush toy are preserved, and the old eye/mouth overlays are disabled. Moving the pointer near her adds pink ripples and a larger shower of hearts. Four raster chimeras cut from the supplied reference images stay inside the input bar: the pink winged fairy with cherry bow, the charcoal cat with red hibiscus and paper fan, the red cat hugging a fish, and the mint eyepatch cat holding a tiny dragon. They walk, jump, eat, roll, stack on top of each other, and emit colourful particles on hover. The composer card is restyled as a cyberpunk pixel input with a blue-purple animated light flow and drifting pixel lettering, the whole DSH UI uses a rounded bold font with pink text and pink neon shadows, and user message bubbles use a translucent theme-aware fill with backdrop blur. The main background is fixed to cover the whole conversation view and now uses the same light/dark scrim strength as the sidebar for matching clarity and transparency. The companion and the themed panel background now persist on the Plugins and Schedules pages. The main conversation area uses the supplied Q-version Silver Wolf artwork with its white border and top-right logo cropped away and the framing shifted downward, while the sidebar uses a high-resolution cosplay photo below a pixel-art game HUD band; the sidebar also plays a translucent animated layer of flowing neon streaks, multiple pixel rockets, two cute pixel girls, a gamepad, a planet and hearts; the Windows top bar adds a vivid animated light-flow sweep plus drifting pixel game consoles, ringed planets, gamepads, cartridges and character heads, and the conversation header carries a pink heart-and-star flow. Includes 32 idle lines that advance every 10 seconds, content-aware replies, 32 shy hover lines and mood-reactive motion. Character art supplied by the user; photos by @本体is眼镜 on 米游社.",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.png"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.png",
+    "icon.svg",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md",
+    "CHANGELOG.md"
+  ],
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-chat"
+      ]
+    }
+  }
+}
