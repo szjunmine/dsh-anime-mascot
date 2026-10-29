@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.33.0 — 2026-10-29
+
+- Added a live DeepSeek account balance card at the bottom of the sidebar.
+- The card auto-refreshes every 10 seconds, on window focus, and on click.
+- It shows topped-up balance, bonus indicator, and loading / signed-out / error states.
+
 ## 1.32.0 — 2026-10-28
 
 - Added a panel-aware global companion so Bronya remains visible on the

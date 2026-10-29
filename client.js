@@ -192,6 +192,14 @@ window.__ModuleLoader__.load({
         'hover.shy.30': '我、我只是有点冷……才不是想往你怀里钻。',
         'hover.shy.31': '宝宝，你要负责……把我的心跳弄得这么乱。',
         'hover.shy.32': '宝，今晚的月亮很好看……但我更想看你。',
+        'wallet.label': 'CREDIT // 余额',
+        'wallet.live': 'LIVE',
+        'wallet.loading': 'SYNC...',
+        'wallet.offline': 'NO LINK',
+        'wallet.error': 'SIGNAL LOST',
+        'wallet.bonus': '赠金',
+        'wallet.refresh': '刷新余额',
+        'wallet.rail': '余额',
       },
       en: {
         name: 'Bronya',
@@ -321,6 +329,14 @@ window.__ModuleLoader__.load({
         'hover.shy.30': "I-I'm just a little cold... it's not like I want to curl up in your arms.",
         'hover.shy.31': 'Baby, take responsibility... for making my heart race like this.',
         'hover.shy.32': "Sweetheart, the moon is beautiful tonight... but I'd rather look at you.",
+        'wallet.label': 'CREDIT // BALANCE',
+        'wallet.live': 'LIVE',
+        'wallet.loading': 'SYNC...',
+        'wallet.offline': 'NO LINK',
+        'wallet.error': 'SIGNAL LOST',
+        'wallet.bonus': 'BONUS',
+        'wallet.refresh': 'Refresh balance',
+        'wallet.rail': 'BAL',
       },
     }
 
@@ -775,6 +791,123 @@ window.__ModuleLoader__.load({
   font-family: inherit;
 }
 .mascot--global { display: flex; }
+.wallet {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 56px;
+  margin-right: 8px;
+  padding: 5px 8px 4px;
+  overflow: hidden;
+  border: 1px solid rgba(95, 242, 255, .38);
+  background:
+    linear-gradient(135deg, rgba(8, 12, 28, .94), rgba(25, 12, 40, .9));
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  box-shadow: inset 0 0 14px rgba(95, 242, 255, .08), 0 0 12px rgba(255, 111, 174, .1);
+  color: #ffb3d9 !important;
+  font-family: "Fixedsys", "Terminal", "Consolas", monospace !important;
+  font-weight: 700 !important;
+  text-align: left;
+  cursor: pointer;
+  -webkit-font-smoothing: none;
+}
+.wallet, .wallet * {
+  font-family: "Fixedsys", "Terminal", "Consolas", monospace !important;
+  font-weight: 700 !important;
+}
+.wallet:hover, .wallet:focus-visible {
+  border-color: rgba(255, 111, 174, .8);
+  box-shadow: inset 0 0 18px rgba(255, 111, 174, .14), 0 0 15px rgba(95, 242, 255, .22);
+  outline: none;
+}
+.wallet__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(95, 242, 255, .035) 3px 4px);
+}
+.wallet__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 11px;
+  color: #5ff2ff !important;
+  font-size: 7px;
+  line-height: 11px;
+  letter-spacing: .11em;
+  white-space: nowrap;
+}
+.wallet__dot {
+  flex: none;
+  width: 4px;
+  height: 4px;
+  background: #5ff2ff;
+  box-shadow: 0 0 6px rgba(95, 242, 255, .9);
+  animation: wallet-blink 1.6s steps(2, end) infinite;
+}
+.wallet__live {
+  margin-left: auto;
+  color: #ff9ecb !important;
+  font-size: 6px;
+  letter-spacing: .14em;
+}
+.wallet__main {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  min-width: 0;
+  margin-top: 1px;
+  color: #ff9ecb !important;
+  white-space: nowrap;
+}
+.wallet__sign {
+  flex: none;
+  color: #5ff2ff !important;
+  font-size: 10px;
+  line-height: 1;
+}
+.wallet__amount {
+  min-width: 0;
+  overflow: hidden;
+  color: #ffb3d9 !important;
+  font-size: 19px;
+  font-weight: 700 !important;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 7px rgba(255, 95, 191, .55);
+}
+.wallet__extra {
+  flex: none;
+  color: #5ff2ff !important;
+  font-size: 7px;
+  letter-spacing: .02em;
+}
+.wallet__foot {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 3px;
+  overflow: hidden;
+  color: rgba(255, 158, 203, .58) !important;
+  font-size: 6px;
+  line-height: 8px;
+  letter-spacing: .1em;
+  white-space: nowrap;
+}
+.wallet.is-loading .wallet__amount { opacity: .45; }
+.wallet.is-offline { border-color: rgba(255, 111, 174, .28); }
+.wallet.is-offline .wallet__dot, .wallet.is-error .wallet__dot { background: #ff6fae; box-shadow: 0 0 6px rgba(255, 111, 174, .9); }
+.wallet.is-error .wallet__dot { animation-duration: .45s; }
+.wallet--rail { display: none; }
+@keyframes wallet-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .25; }
+}
 .mascot__bubble {
   position: relative;
   max-width: min(240px, 52vw);
@@ -2368,6 +2501,128 @@ button {
       return React.useMemo(() => null, [])
     }
 
+    const WALLET_VERSION = '0.2.1-rc.3'
+
+    function walletNumber(value) {
+      const number = Number(value)
+      return Number.isFinite(number) ? number : 0
+    }
+
+    function walletAmount(value) {
+      const number = walletNumber(value)
+      if (number === 0) return '0.00'
+      if (number > 0 && number < 0.01) return '<0.01'
+      const sign = number < 0 ? '-' : ''
+      const absolute = Math.abs(number)
+      const text = absolute < 0.01
+        ? '0.01'
+        : absolute.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+      return `${sign}${text}`
+    }
+
+    function walletSymbol(currency) {
+      if (currency === 'CNY') return '¥'
+      if (currency === 'USD') return '$'
+      return currency ? `${currency} ` : '¥'
+    }
+
+    function SidebarWallet(props) {
+      const { wide, t, account, locale } = props
+      const [state, setState] = React.useState({ status: 'loading', wallets: [], bonus: [] })
+      const busy = React.useRef(false)
+
+      const load = React.useCallback(async () => {
+        if (!account || typeof account.getBalance !== 'function') {
+          setState((current) => ({ ...current, status: 'offline' }))
+          return
+        }
+        if (busy.current) return
+        busy.current = true
+        try {
+          const snapshot = locale.getSnapshot()
+          const result = await account.getBalance({
+            version: WALLET_VERSION,
+            locale: snapshot.active,
+            timezoneOffsetSeconds: -new Date().getTimezoneOffset() * 60,
+          })
+          if (!result || !result.ok || !result.value) {
+            setState((current) => ({ ...current, status: 'offline' }))
+            return
+          }
+          const balance = result.value
+          if (balance.status !== 'ready') {
+            setState((current) => ({ ...current, status: 'error' }))
+            return
+          }
+          setState({
+            status: 'ready',
+            wallets: Array.isArray(balance.value) ? balance.value : [],
+            bonus: Array.isArray(balance.bonusWallets) ? balance.bonusWallets : [],
+          })
+        } catch {
+          setState((current) => ({ ...current, status: 'error' }))
+        } finally {
+          busy.current = false
+        }
+      }, [account, locale])
+
+      React.useEffect(() => {
+        load()
+        const timer = setInterval(load, 10000)
+        const refresh = () => {
+          if (document.visibilityState === 'visible') load()
+        }
+        window.addEventListener('focus', refresh)
+        document.addEventListener('visibilitychange', refresh)
+        return () => {
+          clearInterval(timer)
+          window.removeEventListener('focus', refresh)
+          document.removeEventListener('visibilitychange', refresh)
+        }
+      }, [load])
+
+      const primary = state.wallets[0]
+      const symbol = walletSymbol(primary && primary.currency)
+      const amount = primary ? walletAmount(primary.balance) : '0.00'
+      const hasBonus = state.bonus.some((wallet) => walletNumber(wallet && wallet.balance) > 0)
+      const statusText = state.status === 'ready'
+        ? t('wallet.live')
+        : state.status === 'loading'
+          ? t('wallet.loading')
+          : state.status === 'offline'
+            ? t('wallet.offline')
+            : t('wallet.error')
+      const label = `${t('wallet.label')} ${state.status === 'ready' ? `${symbol}${amount}` : statusText}`
+
+      return h(
+        'button',
+        {
+          type: 'button',
+          className: `wallet${wide ? '' : ' wallet--rail'} is-${state.status}`,
+          onClick: load,
+          title: `${t('wallet.refresh')} · ${statusText}`,
+          'aria-label': label,
+        },
+        h('span', { className: 'wallet__scan', 'aria-hidden': 'true' }),
+        h('span', { className: 'wallet__head' },
+          h('span', { className: 'wallet__dot', 'aria-hidden': 'true' }),
+          h('span', { className: 'wallet__label' }, t('wallet.label')),
+          h('span', { className: 'wallet__live' }, statusText),
+        ),
+        h('span', { className: 'wallet__main' },
+          h('span', { className: 'wallet__sign' }, symbol),
+          h('strong', { className: 'wallet__amount' }, state.status === 'ready' ? amount : '--'),
+          state.status === 'ready' && state.wallets.length > 1
+            ? h('span', { className: 'wallet__extra' }, `+${state.wallets.length - 1}`)
+            : null,
+        ),
+        h('span', { className: 'wallet__foot' },
+          h('span', null, 'WALLET.01'),
+          h('span', null, hasBonus ? `BONUS.${t('wallet.bonus')}` : 'AUTO 10S'),
+        ),
+      )
+    }
+
     function MascotDock(props) {
       const useChat = typeof props.useChat === 'function' ? props.useChat : useNoChat
       const latest = useChat(pickLatest)
@@ -2533,7 +2788,7 @@ button {
     }
 
     return {
-      inject: ['slots', 'locale', 'theme'],
+      inject: ['slots', 'locale', 'theme', 'remote', 'remote.account'],
       apply(ctx) {
         ctx.effect(() => ctx.locale.register(NS, { zh: DICT.zh, en: DICT.en }), 'anime-mascot: dictionaries')
         ctx.effect(() => {
@@ -2567,6 +2822,17 @@ button {
           if (panelId === null || panelId === undefined || panelId === 'conversation') return null
           return h(LocalizedMascot, { ...props, t, locale: ctx.locale, global: true })
         }
+        const BoundWallet = (props) => h(SidebarWallet, {
+          ...props,
+          t,
+          locale: ctx.locale,
+          account: ctx.remote.account,
+        })
+        ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({
+          name: 'sidebar.footer.action',
+          id: 'anime-mascot-wallet',
+          order: 5,
+        }, BoundWallet))
         ctx.slots.inject('conversation.input.overlay', () => ctx.slots.register({
           name: 'conversation.input.overlay',
           id: 'anime-mascot',

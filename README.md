@@ -18,11 +18,13 @@ A persistent anime companion and cyberpunk pixel theme for the **DeepSeek Harnes
 - **Pink rounded UI** — rounded bold font, pink text with a pink neon glow, and translucent user message bubbles with backdrop blur.
 - **Themed panels** — the companion and the same background remain visible on the Plugins and Schedules pages.
 - **Animated sidebar** — a translucent 24-frame layer with neon streaks, two pixel rockets, two pixel girls, a gamepad, a planet, hearts and stars.
+- **Live balance HUD** — the sidebar footer shows the signed-in account balance in a cyberpunk pixel card, refreshed every 10 seconds and on window focus; click the card to refresh immediately.
 
 ## Requirements
 
 - A DSH build that supports a local client bundle (`package.json` → `dsh.bundle` and `dsh.client`).
 - The Web UI.
+- A signed-in DeepSeek account for the live balance card. Signed-out users still see the card in its `NO LINK` state.
 
 ## Installation
 
@@ -68,7 +70,7 @@ python -c "import json; json.load(open('package.json', encoding='utf-8'))"
 
 ## Version
 
-Current release: **1.32.0**.
+Current release: **1.33.0**.
 
 See [CHANGELOG.md](CHANGELOG.md) for the release history.
 
