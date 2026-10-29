@@ -853,6 +853,8 @@ window.__ModuleLoader__.load({
   font-size: 6px;
   letter-spacing: .14em;
 }
+.wallet__label { color: #5ff2ff !important; }
+.wallet__foot span { color: rgba(255, 158, 203, .58) !important; }
 .wallet__main {
   position: relative;
   display: flex;
